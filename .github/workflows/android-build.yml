@@ -20,6 +20,18 @@ jobs:
       - name: Baixar o projeto
         uses: actions/checkout@v4
 
+        
+      - name: Corrigir expressões hexadecimais para Clang
+        run: |
+          FILE="static-recomp/src/topgear_mod_rivals.c"
+          sed -E -i \
+            's/(0[xX][0-9a-fA-F]+)[+]([[:alpha:]_])/\1 + \2/g' \
+            "$FILE"
+          grep -nE '0[xX][0-9a-fA-F]+\+[[:alpha:]_]' "$FILE" \
+            && { echo "Ainda existem expressões sem espaço"; exit 1; } \
+            || echo "Correção verificada"
+
+
       - name: Instalar CMake e Ninja
         run: |
           sudo apt-get update
