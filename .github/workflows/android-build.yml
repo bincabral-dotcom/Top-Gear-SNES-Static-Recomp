@@ -50,6 +50,7 @@ jobs:
             -DANDROID_PLATFORM=android-26 \
             -DBUILD_TESTING=OFF \
             -DCMAKE_BUILD_TYPE=Release
+            -DCMAKE_C_FLAGS="-Wno-error=misleading-indentation
 
       - name: Compilar núcleo
         run: |
