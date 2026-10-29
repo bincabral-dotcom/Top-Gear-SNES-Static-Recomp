@@ -1,0 +1,29 @@
+name: Compilar Top Gear para Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Compilar Launcher
+    runs-on: windows-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar projeto
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Compilar versão Release
+        run: cmake --build build --config Release --target topgear-launcher
+
+      - name: Guardar executável para download
+        uses: actions/upload-artifact@v4
+        with:
+          name: Top-Gear-Windows
+          path: build/Release/Launcher.exe
+          if-no-files-found: error
