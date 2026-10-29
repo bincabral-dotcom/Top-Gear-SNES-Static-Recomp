@@ -9,14 +9,14 @@ on:
 jobs:
   build:
     name: Compilar Launcher
-    runs-on: windows-2022
+    runs-on: windows-2025
 
     steps:
       - name: Baixar código
         uses: actions/checkout@v4
 
       - name: Configurar projeto
-        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+        run: cmake -S . -B build -G "Visual Studio 18 2026" -A x64
 
       - name: Compilar versão Release
         run: cmake --build build --config Release --target topgear-launcher
